@@ -64,13 +64,13 @@ namespace SessionZeroInteractive
                     return false;
                 }
 
-                PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
-                SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
-                STARTUPINFO si = new STARTUPINFO();
-                sa.length = Marshal.SizeOf(sa);
-                si.cb = Marshal.SizeOf(si);
-                si.lpDesktop = string.Empty;
-                return CreateProcessAsUser(pToken, null, $"{fileName} {arguments}", ref sa, ref sa, false, 0x20, IntPtr.Zero, null, ref si, ref pi);
+                PROCESS_INFORMATION processInformation = new PROCESS_INFORMATION();
+                SECURITY_ATTRIBUTES securityAttributes = new SECURITY_ATTRIBUTES();
+                STARTUPINFO startupInformation = new STARTUPINFO();
+                securityAttributes.length = Marshal.SizeOf(securityAttributes);
+                startupInformation.cb = Marshal.SizeOf(startupInformation);
+                startupInformation.lpDesktop = string.Empty;
+                return CreateProcessAsUser(pToken, null, $"{fileName} {arguments}", ref securityAttributes, ref securityAttributes, false, 0x20, IntPtr.Zero, null, ref startupInformation, ref processInformation);
 
             }
             finally
